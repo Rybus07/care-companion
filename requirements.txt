@@ -1,0 +1,16 @@
+# Web Framework & UI
+streamlit>=1.35.0
+
+# Data Validation & Schemas
+pydantic>=2.7.0
+
+# HTTP & API Requests
+requests>=2.31.0
+
+# Jupyter Kernel (for notebook development)
+ipykernel>=6.29.0
+
+# Optional: PyTorch & Transformers (if running local OCR/models)
+torch>=2.2.0
+transformers>=4.40.0
+pillow>=10.3.0
