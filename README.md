@@ -1,82 +1,85 @@
-# RxGuard: Handwritten Prescription Understanding & Clinical Safety Verification
+# CareCompanion: AI-Powered Medical Appointment Preparation & Follow-Up Assistant
 
-RxGuard is an open-source, end-to-end clinical AI application designed to transcribe handwritten prescriptions, verify medications against the NIH RxNorm ontology, and translate complex clinical directions into clear, patient-friendly schedules. **Built for Final Project in CS 614 (Applications of Machine Learning) class @ Drexel University**
+CareCompanion is an open-source clinical communication tool designed to help patients organize their symptoms and questions before a medical visit and transform complex doctor notes or discharge summaries into clear, actionable follow-up plans afterward.
 
-## 📌 Overview & Motivation
-Handwritten clinical notes and prescriptions are notorious for ambiguous handwriting, dense medical shorthand (e.g., PO TID x 10d), and high transcription risk. Misreading a single dosage or drug name can lead to severe adverse drug events.
+---
 
-RxGuard tackles this problem through a neuro-symbolic approach:
+## 📌 Overview & Problem Statement
+Navigating healthcare appointments is often overwhelming:
+* **Before the visit:** Patients frequently struggle to structure their symptoms chronologically, forget key concerns under stress, or leave without asking critical questions.
+* **After the visit:** Clinical instructions, medication changes, diagnostic referrals, and red-flag warning signs are frequently lost in medical jargon or forgotten.
 
-**Vision**: Extracts text from handwritten prescription slips using Transformer-based OCR.
+**CareCompanion** bridges this communication gap through a two-sided natural language processing pipeline focused strictly on **organization, clarity, and patient empowerment**—without providing autonomous medical diagnoses or treatment recommendations.
 
-**Clinical Verification**: Validates extracted drug names and strengths against standardized medical ontologies (RxNorm) to prevent Look-Alike Sound-Alike (LASA) hallucinations.
+---
 
-**Plain-Language Scheduling**: Translates clinical abbreviations into an actionable, patient-accessible daily timetable.
+## 🏗️ System Workflow & Architecture
 
-**Interactive UI**: Provides a web-based inspector for visual grounding and human-in-the-loop verification.
+[ PRE-APPOINTMENT WORKFLOW ]
+User raw notes & concerns ──► [ Structured Extraction LLM ] ──► • Chief Complaint & History (HPI)
+• Symptom Timeline
+• Prioritized Doctor Questions
+• 1-Page Printable Doctor Agenda
 
-## 🏗️ System Architecture
+[ POST-APPOINTMENT WORKFLOW ]
+Doctor notes / visit summary ──► [ Action Plan Extractor LLM ] ──► • Prescriptions & Schedule
+• Lab / Imaging Orders to Book
+• Lifestyle Modifications
+• Emergency Red-Flag Warnings
+• Follow-up Timeline Checklist
 
-[ Prescription Image ]
-         │
-         ▼
-[ Hugging Face TrOCR / HTR ] (Vision Feature Extractor)
-         │
-         ▼
-[ Clinical Regex / NER Parser ] (Extracts Drug, Strength, Sig)
-         │
-         ▼
-[ NIH RxNorm REST API ] ──► Validates Concept Unique Identifier (RxCUI)
-         │              ──► Normalizes Generics / Active Ingredients
-         ▼
-[ Plain-Language LLM Engine ] ──► Generates 6th-Grade Daily Regimen
-         │
-         ▼
-[ Django + Tailwind Web App ] (Interactive Split-Screen Inspector)
+---
 
-##c✨ Key Features
+## ✨ Key Features
+* **Pre-Visit Agenda Builder:** Converts unstructured thoughts and worry lists into a concise, clinical-style summary sheet for the clinician.
+* **Question Prioritizer:** Helps patients formulate the top 3–5 targeted questions to ask during limited appointment time slots.
+* **Post-Visit Action Item Extraction:** Automatically parses doctor notes, discharge sheets, or visit transcripts into a structured, step-by-step checklist.
+* **Medication & Referral Tracker:** Catalogs new prescriptions, dosage instructions, and required specialist referrals.
+* **Red-Flag Warning Highlighter:** Pinpoints specific symptoms noted by the clinician that warrant immediate emergency attention.
+* **Non-Diagnostic Safety Design:** Structured explicitly to assist communication and administrative follow-through rather than generating diagnostic assertions.
 
-**Handwritten OCR Extraction**: Uses pre-trained/fine-tuned Transformer OCR (microsoft/trocr-base-handwritten) to transcribe cursive medical text.
-
-**Ontology Grounding (RxNorm)**: Queries the NIH RxNav API to verify drug names, flag unknown entities, and catch potential OCR misreadings.
-
-**Patient-Friendly Translation**: Converts latin sig abbreviations (e.g., q.h.s., b.i.d., p.r.n.) into accessible language.
-
-**Human-in-the-Loop Interface**: Lightweight Django dashboard displaying confidence scores and editable entity fields before generating the final schedule.
+---
 
 ## 📂 Repository Structure
-Plaintext
-RxGuard/
+
+```text
+CareCompanion/
 ├── core/
-│   ├── ml/
+│   ├── nlp/
 │   │   ├── __init__.py
-│   │   ├── engine.py          # Model loader & inference pipeline
-│   │   └── rxnorm.py          # NIH RxNav API wrapper & normalization
+│   │   ├── schemas.py         # Pydantic / JSON output contracts
+│   │   ├── pre_visit.py       # Pre-appointment structuring engine
+│   │   └── post_visit.py      # Post-appointment action plan extractor
 │   ├── templates/
 │   │   └── core/
-│   │       ├── index.html     # Main dashboard
-│   │       └── partials/      # HTMX dynamic response components
-│   ├── models.py              # Upload tracking & JSON results schema
-│   ├── views.py               # Request handlers & processing pipeline
-│   └── apps.py                # Model weight singleton initialization
-├── sample_data/               # Public benchmark samples (RxHandBD)
-├── config/                    # Django project settings
+│   │       ├── base.html
+│   │       ├── pre_visit.html # Intake form & generated agenda
+│   │       ├── post_visit.html# Note parser & action checklist
+│   │       └── partials/      # Dynamic HTMX response cards
+│   ├── models.py              # Appointment, Agenda, and ActionPlan models
+│   ├── views.py               # View endpoints for processing notes
+│   ├── urls.py
+│   └── apps.py
+├── sample_data/               # Sample patient concerns & doctor notes
+├── config/                    # Django project configuration
 ├── manage.py
 ├── requirements.txt
 └── README.md
+```
+---
 
 ## 🚀 Quickstart Guide
+**Prerequisites**
+- Python 3.10+
 
-### Prerequisites
-* Python 3.10+
-* *(Optional)* CUDA-compatible GPU for accelerated local inference
+- Local LLM runner (e.g., Ollama with llama3.2:3b or mistral) OR an API key for any standard inference provider
 
 ### Installation & Setup
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/RxGuard.git](https://github.com/your-username/RxGuard.git)
-   cd RxGuard
+   git clone [https://github.com/your-username/CareCompanion.git](https://github.com/your-username/CareCompanion.git)
+   cd CareCompanion
    ```
 
 2. **Create and activate a virtual environment:**
@@ -90,28 +93,26 @@ RxGuard/
    pip install -r requirements.txt
    ```
 
-4. **Run database migrations:**
+4. **Ensure your local LLM engine is active (e.g., using Ollama):**
+   ```bash
+   ollama run llama3.2:3b
+   ```
+
+5. **Run database migrations:**
    ```bash
    python manage.py migrate
    ```
 
-5. **Start the local server:**
+6. **Start the local server:**
    ```bash
    python manage.py runserver
    ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
+7. **Open the application:**
+   Navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
-## 📊 Datasets & Open Resources
-
-**Handwriting Data**: RxHandBD Dataset (Mendeley Data / Kaggle)
-
-**Drug Ontology & API**: NIH RxNav / RxNorm REST API
-
-**Base Vision Model**: Microsoft TrOCR (Hugging Face)
-
-## ⚠️ Medical Disclaimer
-**This project is strictly for academic, research, and educational purposes. It is not certified for clinical use, automated dispensing, or direct medical diagnosis. Always consult a qualified healthcare professional regarding prescription medications.**
+## ⚠️ Medical & Ethical Disclaimer
+CareCompanion is strictly an organizational and communication support tool. It is not a certified medical device, does not provide medical advice, and is not designed to diagnose, treat, cure, or prevent any health condition. Users should always consult a licensed healthcare professional for medical concerns.
 
 ## 📄 License
-This project is open-source and available under the MIT License.
+Distributed under the MIT License.
