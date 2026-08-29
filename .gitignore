@@ -217,3 +217,11 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 .DS_Store
+
+#ignoring the data files
+data/
+
+#Ignoring final model and data
+trocr_final_mdl/
+trocr_baseline_eval/
+trocr_rxhand_checkpoints/
