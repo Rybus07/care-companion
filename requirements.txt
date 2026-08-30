@@ -30,6 +30,13 @@ Pillow>=10.2.0
 opencv-python-headless>=4.9.0
 matplotlib>=3.8.0
 
-# --- Data Manipulation ---
+# --- Data Manipulation & Validation ---
 numpy>=1.26.0
 pandas>=2.2.0
+pydantic>=2.7.0
+
+# --- Networking & HTTP ---
+requests>=2.31.0
+
+# --- Notebook Display & Environment ---
+ipython>=8.20.0
