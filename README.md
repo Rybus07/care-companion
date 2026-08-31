@@ -46,22 +46,19 @@ Doctor notes / visit summary ──► [ Action Plan Extractor LLM ] ──► �
 CareCompanion/
 ├── core/
 │   ├── nlp/
-│   │   ├── __init__.py
-│   │   ├── schemas.py         # Pydantic / JSON output contracts
-│   │   ├── pre_visit.py       # Pre-appointment structuring engine
-│   │   └── post_visit.py      # Post-appointment action plan extractor
-│   ├── templates/
-│   │   └── core/
+│   │   ├── engine.py             # LLM model scripting
+│   │   ├── markdown_display.py   # JSON to Markdown display code
+│   │   ├── ocr_engine.py         # Pre-appointment structuring engine
+│   │   └── schemas.py            # Pydantic / JSON output contracts
+│   ├── image-to-text/
+│   │   └── train_trocr.py
 │   │       ├── base.html
-│   │       ├── pre_visit.html # Intake form & generated agenda
-│   │       ├── post_visit.html# Note parser & action checklist
-│   │       └── partials/      # Dynamic HTMX response cards
-│   ├── models.py              # Appointment, Agenda, and ActionPlan models
-│   ├── views.py               # View endpoints for processing notes
-│   ├── urls.py
-│   └── apps.py
-├── sample_data/               # Sample patient concerns & doctor notes
-├── config/                    # Django project configuration
+│   │       ├── pre_visit.html    # Intake form & generated agenda
+│   │       ├── post_visit.html   # Note parser & action checklist
+│   │       └── partials/         # Dynamic HTMX response cards
+│   └── cv_pipeline.py            # Pipeline for TrOCR model
+├── data/                         # placeholder for data files
+├── models/                       # Folder Placeholder for future trained models
 ├── manage.py
 ├── requirements.txt
 └── README.md
@@ -100,7 +97,9 @@ CareCompanion/
 
 5. **Run the following notebooks in this order to recreate project:**
    ```bash
-   1. 01
+   1. 01_Training Image-to-Text Model.ipynb
+   2. 02_Testing Image-to-Text Model.ipynb
+   3. 03_App Functionality Demo.ipynb
    ```
 
 
