@@ -46,22 +46,25 @@ Doctor notes / visit summary ──► [ Action Plan Extractor LLM ] ──► �
 CareCompanion/
 ├── core/
 │   ├── nlp/
-│   │   ├── engine.py             # LLM model scripting
-│   │   ├── markdown_display.py   # JSON to Markdown display code
-│   │   ├── ocr_engine.py         # Pre-appointment structuring engine
-│   │   └── schemas.py            # Pydantic / JSON output contracts
+│   │   ├── engine.py                            # LLM model scripting
+│   │   ├── markdown_display.py                  # JSON to Markdown display code
+│   │   ├── ocr_engine.py                        # Pre-appointment structuring engine
+│   │   └── schemas.py                           # Pydantic / JSON output contracts
 │   ├── image-to-text/
 │   │   └── train_trocr.py
-│   │       ├── base.html
-│   │       ├── pre_visit.html    # Intake form & generated agenda
-│   │       ├── post_visit.html   # Note parser & action checklist
-│   │       └── partials/         # Dynamic HTMX response cards
-│   └── cv_pipeline.py            # Pipeline for TrOCR model
-├── data/                         # placeholder for data files
-├── models/                       # Folder Placeholder for future trained models
-├── manage.py
-├── requirements.txt
-└── README.md
+│   ├── app.py/                                  # Testing of Front End Rendering
+│   └── cv_pipeline.py                           # Pipeline for TrOCR model
+├── notebooks/ 
+│   ├── 01_Training Image-to-Text Model.ipynb    # Training TrOCR model
+│   ├── 02_Testing Image-to-Text Model.ipynb     # Testing TrOCR on curated Images
+│   ├── 03_App Functionality Demo.ipynb          # Testing complete app capabilities
+│   ├── Medical Prescription Reader.ipynb
+│   ├── Training Dataset Demo.ipynb
+│   └── appointment_test.ipynb 
+├── .gitignore/                                   
+├── CareCompanion_Pitch_Dexk_CS614.pdf           # PDF of Powerpoint Slides
+├── README.md
+└── requirements.txt
 ```
 ---
 
