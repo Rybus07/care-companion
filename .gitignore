@@ -219,9 +219,10 @@ __marimo__/
 .DS_Store
 
 #ignoring the data files
-data/
+data/RxHandBD A Handwritten Prescription Word Image Dat/
+data/test_images/
 
 #Ignoring final model and data
-trocr_final_mdl/
-trocr_baseline_eval/
-trocr_rxhand_checkpoints/
+models/trocr_final_mdl/
+models/model_checkpoints/trocr_baseline_eval/
+models/model_checkpoints/trocr_rxhand_checkpoints/
