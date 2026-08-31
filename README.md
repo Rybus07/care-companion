@@ -98,18 +98,11 @@ CareCompanion/
    ollama run llama3.2:3b
    ```
 
-5. **Run database migrations:**
+5. **Run the following notebooks in this order to recreate project:**
    ```bash
-   python manage.py migrate
+   1. 01
    ```
 
-6. **Start the local server:**
-   ```bash
-   python manage.py runserver
-   ```
-
-7. **Open the application:**
-   Navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ## ⚠️ Medical & Ethical Disclaimer
 CareCompanion is strictly an organizational and communication support tool. It is not a certified medical device, does not provide medical advice, and is not designed to diagnose, treat, cure, or prevent any health condition. Users should always consult a licensed healthcare professional for medical concerns.
